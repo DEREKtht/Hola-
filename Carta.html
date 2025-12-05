@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lluvia de corazones</title>
+
+    <style>
+        /* ===== FONDO DEGRADADO ===== */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: linear-gradient(135deg, #8e66ff, #b48cff, #e6d4ff);
+            font-family: "Courier New", cursive;
+            position: relative;
+            overflow: hidden; /*  */
+        }
+
+        /* === CONTENEDOR PARA CENTRAR CARTA === */
+        .centro {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            pointer-events: none; /*  */
+        }
+
+        /* ===== CARTA ===== */
+       
+.carta {
+    width: 320px;
+    height: 220px;
+    background-image: url("carta.png");
+    background-size: cover;
+    background-position: center;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Courier New", cursive;
+    font-size: 18px;
+}
+
+        /* ===== CORAZONES ===== */
+        .corazon {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: pink;
+            transform: rotate(45deg);
+            border-radius: 50% 50% 0 0;
+            animation: caer 5.5s linear forwards;
+            pointer-events: none;
+        }
+
+        .corazon::before,
+        .corazon::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: inherit;
+            border-radius: 50% 50% 0 0;
+        }
+
+        .corazon::before {
+            top: -10px;
+            left: 0;
+        }
+
+        .corazon::after {
+            top: 0;
+            left: 10px;
+        }
+
+        /* ===== ANIMACIÓN DE CAÍDA ===== */
+        @keyframes caer {
+            0% {
+                transform: translateY(-10vh) rotate(45deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(45deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="centro">
+        <div class="carta">
+            Para ti, con mucho cariño 💜<br>
+            Que esta Navidad llene tu corazón de luz ✨
+        </div>
+    </div>
+
+    <script>
+        const colores = ["#ffb3d9", "#ffd1dc", "#ffc8e4", "#ffe6fa", "#ffbde6"];
+
+        function crearCorazon() {
+            const c = document.createElement("div");
+            c.classList.add("corazon");
+
+            // color pastel
+            c.style.backgroundColor = colores[Math.floor(Math.random() * colores.length)];
+
+            // posición horizontal
+            c.style.left = Math.random() * 100 + "vw";
+
+            // escala suave
+            const tamaño = Math.random() * 0.9 + 0.5;
+            c.style.transform = `rotate(45deg) scale(${tamaño})`;
+
+            document.body.appendChild(c);
+
+            // eliminar
+            setTimeout(() => c.remove(), 6000);
+        }
+
+        setInterval(crearCorazon, 120);
+    </script>
+
+</body>
+</html>
